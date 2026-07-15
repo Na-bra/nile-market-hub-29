@@ -9,38 +9,238 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SellersSellerIdRouteImport } from './routes/sellers.$sellerId'
+import { Route as ProductsIdRouteImport } from './routes/products.$id'
+import { Route as AuthRegisterRouteImport } from './routes/auth.register'
+import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated.reports'
+import { Route as AuthenticatedFavoritesRouteImport } from './routes/_authenticated.favorites'
+import { Route as AuthenticatedListingsNewRouteImport } from './routes/_authenticated.listings.new'
+import { Route as AuthenticatedListingsMineRouteImport } from './routes/_authenticated.listings.mine'
+import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated.admin.reports'
+import { Route as AuthenticatedAdminListingsRouteImport } from './routes/_authenticated.admin.listings'
+import { Route as AuthenticatedListingsIdEditRouteImport } from './routes/_authenticated.listings.$id.edit'
 
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseRoute = BrowseRouteImport.update({
+  id: '/browse',
+  path: '/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SellersSellerIdRoute = SellersSellerIdRouteImport.update({
+  id: '/sellers/$sellerId',
+  path: '/sellers/$sellerId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsIdRoute = ProductsIdRouteImport.update({
+  id: '/products/$id',
+  path: '/products/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedFavoritesRoute = AuthenticatedFavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedListingsNewRoute =
+  AuthenticatedListingsNewRouteImport.update({
+    id: '/listings/new',
+    path: '/listings/new',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedListingsMineRoute =
+  AuthenticatedListingsMineRouteImport.update({
+    id: '/listings/mine',
+    path: '/listings/mine',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminReportsRoute =
+  AuthenticatedAdminReportsRouteImport.update({
+    id: '/admin/reports',
+    path: '/admin/reports',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminListingsRoute =
+  AuthenticatedAdminListingsRouteImport.update({
+    id: '/admin/listings',
+    path: '/admin/listings',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedListingsIdEditRoute =
+  AuthenticatedListingsIdEditRouteImport.update({
+    id: '/listings/$id/edit',
+    path: '/listings/$id/edit',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/browse': typeof BrowseRoute
+  '/categories': typeof CategoriesRoute
+  '/favorites': typeof AuthenticatedFavoritesRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/sellers/$sellerId': typeof SellersSellerIdRoute
+  '/admin/listings': typeof AuthenticatedAdminListingsRoute
+  '/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/listings/mine': typeof AuthenticatedListingsMineRoute
+  '/listings/new': typeof AuthenticatedListingsNewRoute
+  '/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/browse': typeof BrowseRoute
+  '/categories': typeof CategoriesRoute
+  '/favorites': typeof AuthenticatedFavoritesRoute
+  '/reports': typeof AuthenticatedReportsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/sellers/$sellerId': typeof SellersSellerIdRoute
+  '/admin/listings': typeof AuthenticatedAdminListingsRoute
+  '/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/listings/mine': typeof AuthenticatedListingsMineRoute
+  '/listings/new': typeof AuthenticatedListingsNewRoute
+  '/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/browse': typeof BrowseRoute
+  '/categories': typeof CategoriesRoute
+  '/_authenticated/favorites': typeof AuthenticatedFavoritesRoute
+  '/_authenticated/reports': typeof AuthenticatedReportsRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
+  '/products/$id': typeof ProductsIdRoute
+  '/sellers/$sellerId': typeof SellersSellerIdRoute
+  '/_authenticated/admin/listings': typeof AuthenticatedAdminListingsRoute
+  '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
+  '/_authenticated/listings/mine': typeof AuthenticatedListingsMineRoute
+  '/_authenticated/listings/new': typeof AuthenticatedListingsNewRoute
+  '/_authenticated/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/browse'
+    | '/categories'
+    | '/favorites'
+    | '/reports'
+    | '/auth/login'
+    | '/auth/register'
+    | '/products/$id'
+    | '/sellers/$sellerId'
+    | '/admin/listings'
+    | '/admin/reports'
+    | '/listings/mine'
+    | '/listings/new'
+    | '/listings/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/browse'
+    | '/categories'
+    | '/favorites'
+    | '/reports'
+    | '/auth/login'
+    | '/auth/register'
+    | '/products/$id'
+    | '/sellers/$sellerId'
+    | '/admin/listings'
+    | '/admin/reports'
+    | '/listings/mine'
+    | '/listings/new'
+    | '/listings/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/browse'
+    | '/categories'
+    | '/_authenticated/favorites'
+    | '/_authenticated/reports'
+    | '/auth/login'
+    | '/auth/register'
+    | '/products/$id'
+    | '/sellers/$sellerId'
+    | '/_authenticated/admin/listings'
+    | '/_authenticated/admin/reports'
+    | '/_authenticated/listings/mine'
+    | '/_authenticated/listings/new'
+    | '/_authenticated/listings/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  BrowseRoute: typeof BrowseRoute
+  CategoriesRoute: typeof CategoriesRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
+  ProductsIdRoute: typeof ProductsIdRoute
+  SellersSellerIdRoute: typeof SellersSellerIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse': {
+      id: '/browse'
+      path: '/browse'
+      fullPath: '/browse'
+      preLoaderRoute: typeof BrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +248,119 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sellers/$sellerId': {
+      id: '/sellers/$sellerId'
+      path: '/sellers/$sellerId'
+      fullPath: '/sellers/$sellerId'
+      preLoaderRoute: typeof SellersSellerIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$id': {
+      id: '/products/$id'
+      path: '/products/$id'
+      fullPath: '/products/$id'
+      preLoaderRoute: typeof ProductsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/reports': {
+      id: '/_authenticated/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AuthenticatedReportsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/favorites': {
+      id: '/_authenticated/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof AuthenticatedFavoritesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/listings/new': {
+      id: '/_authenticated/listings/new'
+      path: '/listings/new'
+      fullPath: '/listings/new'
+      preLoaderRoute: typeof AuthenticatedListingsNewRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/listings/mine': {
+      id: '/_authenticated/listings/mine'
+      path: '/listings/mine'
+      fullPath: '/listings/mine'
+      preLoaderRoute: typeof AuthenticatedListingsMineRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/reports': {
+      id: '/_authenticated/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AuthenticatedAdminReportsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/listings': {
+      id: '/_authenticated/admin/listings'
+      path: '/admin/listings'
+      fullPath: '/admin/listings'
+      preLoaderRoute: typeof AuthenticatedAdminListingsRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/listings/$id/edit': {
+      id: '/_authenticated/listings/$id/edit'
+      path: '/listings/$id/edit'
+      fullPath: '/listings/$id/edit'
+      preLoaderRoute: typeof AuthenticatedListingsIdEditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedFavoritesRoute: typeof AuthenticatedFavoritesRoute
+  AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
+  AuthenticatedAdminListingsRoute: typeof AuthenticatedAdminListingsRoute
+  AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
+  AuthenticatedListingsMineRoute: typeof AuthenticatedListingsMineRoute
+  AuthenticatedListingsNewRoute: typeof AuthenticatedListingsNewRoute
+  AuthenticatedListingsIdEditRoute: typeof AuthenticatedListingsIdEditRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedFavoritesRoute: AuthenticatedFavoritesRoute,
+  AuthenticatedReportsRoute: AuthenticatedReportsRoute,
+  AuthenticatedAdminListingsRoute: AuthenticatedAdminListingsRoute,
+  AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
+  AuthenticatedListingsMineRoute: AuthenticatedListingsMineRoute,
+  AuthenticatedListingsNewRoute: AuthenticatedListingsNewRoute,
+  AuthenticatedListingsIdEditRoute: AuthenticatedListingsIdEditRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  BrowseRoute: BrowseRoute,
+  CategoriesRoute: CategoriesRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
+  ProductsIdRoute: ProductsIdRoute,
+  SellersSellerIdRoute: SellersSellerIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
