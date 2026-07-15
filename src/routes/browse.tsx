@@ -66,7 +66,7 @@ function Browse() {
   }, [search.search, search.category, search.status, search.minPrice, search.maxPrice, search.page]);
 
   const update = (patch: Partial<z.infer<typeof browseSearch>>) => {
-    navigate({ search: (prev) => ({ ...prev, ...patch, page: 1 }) });
+    navigate({ search: (prev: any) => ({ ...prev, ...patch, page: 1 }) });
   };
 
   return (
@@ -168,7 +168,7 @@ function Browse() {
                 <div className="mt-8 flex items-center justify-center gap-2">
                   <button
                     disabled={(search.page ?? 1) <= 1}
-                    onClick={() => navigate({ search: (p) => ({ ...p, page: (p.page ?? 1) - 1 }) })}
+                    onClick={() => navigate({ search: (p: any) => ({ ...p, page: (p.page ?? 1) - 1 }) })}
                     className="rounded-md border border-input px-3 py-1.5 text-sm disabled:opacity-50"
                   >
                     Previous
@@ -178,7 +178,7 @@ function Browse() {
                   </span>
                   <button
                     disabled={(search.page ?? 1) >= totalPages}
-                    onClick={() => navigate({ search: (p) => ({ ...p, page: (p.page ?? 1) + 1 }) })}
+                    onClick={() => navigate({ search: (p: any) => ({ ...p, page: (p.page ?? 1) + 1 }) })}
                     className="rounded-md border border-input px-3 py-1.5 text-sm disabled:opacity-50"
                   >
                     Next
