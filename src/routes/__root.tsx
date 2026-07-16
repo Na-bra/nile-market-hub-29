@@ -17,15 +17,29 @@ import { Layout } from "../components/Layout";
 function NotFoundComponent() {
   return (
     <Layout>
-      <div className="mx-auto max-w-md py-16 text-center">
-        <h1 className="text-6xl font-bold">404</h1>
-        <p className="mt-2 text-muted-foreground">This page doesn't exist.</p>
-        <Link
-          to="/"
-          className="mt-6 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-        >
-          Go home
-        </Link>
+      <div className="mx-auto flex max-w-lg flex-col items-center py-20 text-center">
+        <div className="grid h-24 w-24 place-items-center rounded-full bg-primary/10 text-4xl">
+          🧭
+        </div>
+        <h1 className="mt-6 text-5xl font-bold tracking-tight">404</h1>
+        <p className="mt-2 text-lg font-medium">Page not found</p>
+        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or may have been moved.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link
+            to="/"
+            className="rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          >
+            Go home
+          </Link>
+          <Link
+            to="/browse"
+            className="rounded-full border border-input bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent"
+          >
+            Browse products
+          </Link>
+        </div>
       </div>
     </Layout>
   );
