@@ -18,7 +18,9 @@ import { Route as ProductsIdRouteImport } from './routes/products.$id'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthenticatedReportsRouteImport } from './routes/_authenticated.reports'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated.profile'
 import { Route as AuthenticatedFavoritesRouteImport } from './routes/_authenticated.favorites'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AuthenticatedListingsNewRouteImport } from './routes/_authenticated.listings.new'
 import { Route as AuthenticatedListingsMineRouteImport } from './routes/_authenticated.listings.mine'
 import { Route as AuthenticatedAdminReportsRouteImport } from './routes/_authenticated.admin.reports'
@@ -69,9 +71,19 @@ const AuthenticatedReportsRoute = AuthenticatedReportsRouteImport.update({
   path: '/reports',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedFavoritesRoute = AuthenticatedFavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedListingsNewRoute =
@@ -110,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/browse': typeof BrowseRoute
   '/categories': typeof CategoriesRoute
   '/favorites': typeof AuthenticatedFavoritesRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
@@ -119,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/listings/mine': typeof AuthenticatedListingsMineRoute
   '/listings/new': typeof AuthenticatedListingsNewRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -126,6 +140,7 @@ export interface FileRoutesByTo {
   '/browse': typeof BrowseRoute
   '/categories': typeof CategoriesRoute
   '/favorites': typeof AuthenticatedFavoritesRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/reports': typeof AuthenticatedReportsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
@@ -135,6 +150,7 @@ export interface FileRoutesByTo {
   '/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/listings/mine': typeof AuthenticatedListingsMineRoute
   '/listings/new': typeof AuthenticatedListingsNewRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRoutesById {
@@ -144,6 +160,7 @@ export interface FileRoutesById {
   '/browse': typeof BrowseRoute
   '/categories': typeof CategoriesRoute
   '/_authenticated/favorites': typeof AuthenticatedFavoritesRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/reports': typeof AuthenticatedReportsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
@@ -153,6 +170,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/reports': typeof AuthenticatedAdminReportsRoute
   '/_authenticated/listings/mine': typeof AuthenticatedListingsMineRoute
   '/_authenticated/listings/new': typeof AuthenticatedListingsNewRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/listings/$id/edit': typeof AuthenticatedListingsIdEditRoute
 }
 export interface FileRouteTypes {
@@ -162,6 +180,7 @@ export interface FileRouteTypes {
     | '/browse'
     | '/categories'
     | '/favorites'
+    | '/profile'
     | '/reports'
     | '/auth/login'
     | '/auth/register'
@@ -171,6 +190,7 @@ export interface FileRouteTypes {
     | '/admin/reports'
     | '/listings/mine'
     | '/listings/new'
+    | '/admin/'
     | '/listings/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -178,6 +198,7 @@ export interface FileRouteTypes {
     | '/browse'
     | '/categories'
     | '/favorites'
+    | '/profile'
     | '/reports'
     | '/auth/login'
     | '/auth/register'
@@ -187,6 +208,7 @@ export interface FileRouteTypes {
     | '/admin/reports'
     | '/listings/mine'
     | '/listings/new'
+    | '/admin'
     | '/listings/$id/edit'
   id:
     | '__root__'
@@ -195,6 +217,7 @@ export interface FileRouteTypes {
     | '/browse'
     | '/categories'
     | '/_authenticated/favorites'
+    | '/_authenticated/profile'
     | '/_authenticated/reports'
     | '/auth/login'
     | '/auth/register'
@@ -204,6 +227,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/reports'
     | '/_authenticated/listings/mine'
     | '/_authenticated/listings/new'
+    | '/_authenticated/admin/'
     | '/_authenticated/listings/$id/edit'
   fileRoutesById: FileRoutesById
 }
@@ -283,11 +307,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedReportsRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/favorites': {
       id: '/_authenticated/favorites'
       path: '/favorites'
       fullPath: '/favorites'
       preLoaderRoute: typeof AuthenticatedFavoritesRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/listings/new': {
@@ -330,21 +368,25 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedFavoritesRoute: typeof AuthenticatedFavoritesRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedReportsRoute: typeof AuthenticatedReportsRoute
   AuthenticatedAdminListingsRoute: typeof AuthenticatedAdminListingsRoute
   AuthenticatedAdminReportsRoute: typeof AuthenticatedAdminReportsRoute
   AuthenticatedListingsMineRoute: typeof AuthenticatedListingsMineRoute
   AuthenticatedListingsNewRoute: typeof AuthenticatedListingsNewRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedListingsIdEditRoute: typeof AuthenticatedListingsIdEditRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedFavoritesRoute: AuthenticatedFavoritesRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedReportsRoute: AuthenticatedReportsRoute,
   AuthenticatedAdminListingsRoute: AuthenticatedAdminListingsRoute,
   AuthenticatedAdminReportsRoute: AuthenticatedAdminReportsRoute,
   AuthenticatedListingsMineRoute: AuthenticatedListingsMineRoute,
   AuthenticatedListingsNewRoute: AuthenticatedListingsNewRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedListingsIdEditRoute: AuthenticatedListingsIdEditRoute,
 }
 

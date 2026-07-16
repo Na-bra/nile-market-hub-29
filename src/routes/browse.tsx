@@ -78,10 +78,10 @@ function Browse() {
   }, [products, search.sort]);
 
   const update = (patch: Partial<z.infer<typeof browseSearch>>) => {
-    navigate({ search: (prev) => ({ ...prev, ...patch, page: 1 }) });
+    navigate({ search: (prev: any) => ({ ...prev, ...patch, page: 1 }) });
   };
 
-  const goPage = (p: number) => navigate({ search: (prev) => ({ ...prev, page: p }) });
+  const goPage = (p: number) => navigate({ search: (prev: any) => ({ ...prev, page: p }) });
 
   const activeCount =
     (search.category ? 1 : 0) +
