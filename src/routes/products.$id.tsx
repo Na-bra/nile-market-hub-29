@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { getProduct, deleteProduct } from "../services/productService";
 import { getSeller } from "../services/sellerService";
+import { getUser } from "../services/userService";
 import { addFavorite, removeFavorite, listFavorites } from "../services/favoriteService";
 import { createReport } from "../services/reportService";
 import { Layout } from "../components/Layout";
@@ -10,6 +11,15 @@ import { ModerationBadge, StatusBadge, formatPrice } from "../components/Product
 import { extractError } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import type { Product, ReportReason } from "../services/types";
+
+// Build a wa.me URL from a raw phone number. Strips non-digits and
+// drops a single leading zero so local formats (e.g. 080…) still work.
+function buildWhatsappUrl(raw: string, message: string) {
+  let digits = raw.replace(/\D/g, "");
+  if (digits.startsWith("00")) digits = digits.slice(2);
+  else if (digits.startsWith("0")) digits = digits.slice(1);
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
+}
 
 export const Route = createFileRoute("/products/$id")({
   component: ProductDetails,
