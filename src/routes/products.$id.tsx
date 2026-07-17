@@ -68,6 +68,16 @@ function ProductDetails() {
         } catch {
           /* seller lookup best-effort */
         }
+        try {
+          const u = await getUser(p.sellerId);
+          if (!cancelled) {
+            setSellerWhatsapp(u.whatsappNumber ?? null);
+            setSellerPhone(u.phoneNumber ?? null);
+            if (!sellerName && u.fullName) setSellerName(u.fullName);
+          }
+        } catch {
+          /* contact lookup best-effort */
+        }
       })
       .catch((e) => !cancelled && setError(extractError(e)))
       .finally(() => !cancelled && setLoading(false));
