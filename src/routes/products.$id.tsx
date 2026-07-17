@@ -41,6 +41,8 @@ function ProductDetails() {
   const [product, setProduct] = useState<Product | null>(null);
   const [sellerName, setSellerName] = useState<string>("");
   const [sellerRating, setSellerRating] = useState<{ avg: number; count: number } | null>(null);
+  const [sellerWhatsapp, setSellerWhatsapp] = useState<string | null>(null);
+  const [sellerPhone, setSellerPhone] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [favorited, setFavorited] = useState(false);
