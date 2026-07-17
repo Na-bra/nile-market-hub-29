@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Package, Flag, Clock, CheckCircle2, XCircle, ArrowRight } from "lucide-react";
+import { Package, Flag, Clock, CheckCircle2, XCircle, ArrowRight, Users } from "lucide-react";
 import { Layout } from "../components/Layout";
 import { ErrorMessage, Spinner } from "../components/Feedback";
 import { useAuth } from "../context/AuthContext";
@@ -66,7 +66,7 @@ function AdminDashboard() {
             <Stat label="Open reports" value={openReports} icon={<Flag className="h-5 w-5" />} tone="blue" />
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             <Panel
               to="/admin/listings"
               icon={<Package className="h-5 w-5" />}
@@ -79,11 +79,14 @@ function AdminDashboard() {
               title="Reports"
               desc="Investigate and resolve user reports."
             />
+            <Panel
+              to="/admin/users"
+              icon={<Users className="h-5 w-5" />}
+              title="Users"
+              desc="Look up user profiles. Full listing pending backend support."
+            />
           </div>
 
-          {/* TODO(backend): no user-management endpoints are documented.
-              Add GET /api/users and role/status mutations to enable user
-              administration here. */}
         </>
       )}
     </Layout>
