@@ -176,15 +176,6 @@ export function Header() {
             </div>
           </form>
           <nav className="flex flex-col">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="rounded-md px-3 py-2 text-sm hover:bg-accent"
-              >
-                {l.label}
-              </Link>
-            ))}
             {isAuthenticated && (
               <Link to="/listings/new" className="rounded-md px-3 py-2 text-sm hover:bg-accent">
                 Sell an item
