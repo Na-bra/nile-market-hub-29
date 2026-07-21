@@ -13,6 +13,7 @@ import {
   FileText,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Header() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
@@ -44,11 +45,6 @@ export function Header() {
     navigate({ to: "/browse", search: { search: term || undefined } });
   };
 
-  const navLinks = [
-    { to: "/browse" as const, label: "Browse" },
-    { to: "/categories" as const, label: "Categories" },
-  ];
-
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
@@ -60,19 +56,6 @@ export function Header() {
             Nile <span className="text-primary">Market</span>
           </span>
         </Link>
-
-        <nav className="hidden gap-1 md:flex">
-          {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeProps={{ className: "bg-accent text-foreground" }}
-              className="rounded-md px-3 py-1.5 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
 
         <form onSubmit={submitSearch} className="ml-auto hidden max-w-sm flex-1 md:flex">
           <div className="relative w-full">
@@ -88,6 +71,7 @@ export function Header() {
         </form>
 
         <div className="ml-auto flex items-center gap-1 md:ml-0">
+          <ThemeToggle />
           {isAuthenticated ? (
             <>
               <Link
@@ -192,15 +176,6 @@ export function Header() {
             </div>
           </form>
           <nav className="flex flex-col">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                className="rounded-md px-3 py-2 text-sm hover:bg-accent"
-              >
-                {l.label}
-              </Link>
-            ))}
             {isAuthenticated && (
               <Link to="/listings/new" className="rounded-md px-3 py-2 text-sm hover:bg-accent">
                 Sell an item

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import { Header } from "./Header";
 
@@ -11,13 +10,10 @@ export function Layout({ children }: { children: ReactNode }) {
       <footer className="mt-16 border-t border-border">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <div>© {new Date().getFullYear()} Nile Market — a marketplace for university students.</div>
-          <div className="flex gap-4">
-            <Link to="/browse" className="hover:text-foreground">Browse</Link>
-            <Link to="/categories" className="hover:text-foreground">Categories</Link>
-          </div>
         </div>
       </footer>
       <Toaster position="top-right" richColors closeButton />
     </div>
   );
 }
+
