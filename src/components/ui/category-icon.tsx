@@ -75,9 +75,9 @@ export function getCategoryIcon(name?: string | null): ComponentType<LucideProps
   return Package;
 }
 
-interface CategoryIconProps extends LucideProps {
+type CategoryIconProps = Omit<LucideProps, "name"> & {
   name?: string | null;
-}
+};
 
 export function CategoryIcon({ name, ...props }: CategoryIconProps) {
   const Icon = getCategoryIcon(name);
