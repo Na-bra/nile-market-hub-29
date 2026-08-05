@@ -12,9 +12,18 @@ export interface ProductQuery {
 }
 
 export async function listProducts(q: ProductQuery = {}): Promise<ProductListResponse> {
-  const { data } = await api.get<ProductListResponse>("/api/products", { params: q });
-  return data;
+  const { data } = await api.get<unknown>("/api/products", { params: q });
+  // Backend may return a bare array or a wrapped object; normalize both.
+  if (Array.isArray(data)) {
+    return { products: data as Product[], total: data.length } as ProductListResponse;
+  }
+  const d = (data ?? {}) as Record<string, unknown>;
+  const products = (["products", "data", "results", "items"]
+    .map((k) => d[k])
+    .find((v) => Array.isArray(v)) ?? []) as Product[];
+  return { ...(d as object), products } as ProductListResponse;
 }
+
 
 export async function getProduct(id: string): Promise<Product> {
   const { data } = await api.get<Product | { product: Product; success?: boolean }>(
