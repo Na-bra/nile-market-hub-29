@@ -15,8 +15,16 @@ export async function listProducts(q: ProductQuery = {}): Promise<ProductListRes
   const { data } = await api.get<unknown>("/api/products", { params: q });
   // Backend may return a bare array or a wrapped object; normalize both.
   if (Array.isArray(data)) {
-    return { products: data as Product[], total: data.length } as ProductListResponse;
+    return {
+      success: true,
+      count: data.length,
+      currentPage: 1,
+      totalPages: 1,
+      totalProducts: data.length,
+      products: data as Product[],
+    } as ProductListResponse;
   }
+
   const d = (data ?? {}) as Record<string, unknown>;
   const products = (["products", "data", "results", "items"]
     .map((k) => d[k])
