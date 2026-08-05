@@ -30,8 +30,14 @@ function resolve(theme: Theme): "light" | "dark" {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => readInitial());
-  const [resolved, setResolved] = useState<"light" | "dark">(() => resolve(readInitial()));
+  // Start from SSR-safe defaults so the first client render matches the server
+  // markup, then sync to the stored/system preference after mount.
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [resolved, setResolved] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    setThemeState(readInitial());
+  }, []);
 
   useEffect(() => {
     const next = resolve(theme);
@@ -68,10 +74,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used within ThemeProvider");
-  return ctx;
+const defaultTheme: ThemeCtx = {
+  theme: "system",
+  resolved: "light",
+  setTheme: () => {},
+  toggle: () => {},
+};
+
+export function useTheme(): ThemeCtx {
+  return useContext(ThemeContext) ?? defaultTheme;
 }
 
 // Inline script to apply theme before first paint. Rendered in <head>.

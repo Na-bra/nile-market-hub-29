@@ -11,8 +11,8 @@ export function ThemeToggle() {
     <button
       onClick={toggle}
       className="rounded-full p-2 text-muted-foreground hover:bg-accent hover:text-foreground"
-      aria-label={`Switch to ${resolved === "dark" ? "light" : "dark"} mode`}
-      title={`Switch to ${resolved === "dark" ? "light" : "dark"} mode`}
+      aria-label={`Switch to ${mounted && resolved === "dark" ? "light" : "dark"} mode`}
+      title={`Switch to ${mounted && resolved === "dark" ? "light" : "dark"} mode`}
       type="button"
     >
       {mounted && resolved === "dark" ? (
