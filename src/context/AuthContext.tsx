@@ -75,8 +75,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// Fallback used when a component renders outside AuthProvider (e.g. the root
+// error/not-found boundaries, which render above the provider tree).
+const anonymousAuth: AuthContextValue = {
+  user: null,
+  token: null,
+  isAuthenticated: false,
+  isAdmin: false,
+  login: () => Promise.reject(new Error("Auth is unavailable here")),
+  signup: () => Promise.reject(new Error("Auth is unavailable here")),
+  logout: () => {},
+};
+
 export function useAuth(): AuthContextValue {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
-  return ctx;
+  return useContext(AuthContext) ?? anonymousAuth;
 }
